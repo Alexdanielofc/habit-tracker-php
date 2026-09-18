@@ -7,5 +7,21 @@
   {{-- GitHub --}}
   <div>
     github
+
+    @auth
+      <form action="{{ route('auth.logout') }}" method="POST">
+        @csrf
+
+        <button type="submit" class="bg-white border-2 p-2">
+          Sair
+        </button>
+      </form>
+    @endauth
+
+    @guest
+        <a href="{{ route('site.login') }}" class="bg-white border-2 p-2">
+          Login
+        </a>
+    @endguest
   </div>
 </header>
