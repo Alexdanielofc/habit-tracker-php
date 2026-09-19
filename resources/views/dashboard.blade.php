@@ -29,10 +29,17 @@
                 <p class="font-bold text-xl">
                   - {{ $item->name }}
                 </p>
-
                 <p>
                   [{{ $item->habitLogs->count() }} registros]
                 </p>
+                <form action="{{ route('habit.destroy', $item) }}" method="POST" class="">
+                  @csrf
+                  @method('DELETE')
+
+                  <button type="submit" class="bg-red-500 border-white p-1 border-2 hover:opacity-50 cursor-pointer">
+                    <x-icons.trash />
+                  </button>
+                </form>
               </div>
             </li>
           @empty
