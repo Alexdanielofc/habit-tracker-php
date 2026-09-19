@@ -21,7 +21,7 @@
           type="email"
           name="email"
           placeholder="your@email.com"
-          class="bg-with p-2 border-2 @error('email') border-red-500 @enderror"
+          class="bg-white p-2 border-2 @error('email') border-red-500 @enderror"
           >
 
           @error('email')
@@ -40,7 +40,7 @@
             type="password"
             name="password"
             placeholder="********"
-            class="bg-with p-2 border-2 @error('password') border-red-500 @enderror"
+            class="bg-white p-2 border-2 @error('password') border-red-500 @enderror"
           >
 
           @error('password')
