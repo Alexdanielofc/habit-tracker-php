@@ -6,8 +6,6 @@
 
   {{-- GitHub --}}
   <div>
-    github
-
     @auth
       <form action="{{ route('auth.logout') }}" method="POST">
         @csrf
