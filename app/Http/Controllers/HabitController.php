@@ -35,7 +35,7 @@ class HabitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Habit $habit)
+    public function show(HabitRequest $habit)
     {
         //
     }
@@ -43,23 +43,31 @@ class HabitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Habit $habit)
+    public function edit(HabitRequest $habit)
     {
-        //
+        return view('habits.edit', compact('habit'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Habit $habit)
+    public function update(HabitRequest $request, Habit $habit)
     {
-        //
+        if ($habit->user_id !== auth()->user()->id) {
+            abort(403, 'Ação não autorizada.');
+        }
+
+        $habit->update($request->all());
+
+        return redirect()
+            ->route('site.dashboard')
+            ->with('success', 'Hábito atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Habit $habit)
+    public function destroy(HabitRequest $habit)
     {
         if ($habit->user_id !== auth()->user()->id) {
             abort(403, 'Ação não autorizada.');

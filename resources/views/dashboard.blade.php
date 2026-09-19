@@ -32,14 +32,20 @@
                 <p>
                   [{{ $item->habitLogs->count() }} registros]
                 </p>
+
+                <a href="{{ route('habit.edit', $item) }}" class="bg-blue-500 p-1 border-2 hover:opacity-50 cursor-pointer">
+                  <x-icons.pen />
+                </a>
+
                 <form action="{{ route('habit.destroy', $item) }}" method="POST" class="">
                   @csrf
                   @method('DELETE')
 
-                  <button type="submit" class="bg-red-500 border-white p-1 border-2 hover:opacity-50 cursor-pointer">
+                  <button type="submit" class="bg-red-500  p-1 border-2 hover:opacity-50">
                     <x-icons.trash />
                   </button>
                 </form>
+
               </div>
             </li>
           @empty
