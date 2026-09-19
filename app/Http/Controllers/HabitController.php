@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HabitRequest;
 use App\Models\Habit;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class HabitController extends Controller
 {
+    public function index(): View
+    {
+        $habits = auth()->user()->habits;
+
+        return view('dashboard', compact('habits'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -28,14 +33,14 @@ class HabitController extends Controller
         auth()->user()->habits()->create($validated);
 
         return redirect()
-            ->route('site.dashboard')
+            ->route('habits.index')
             ->with('success', 'Hábito criado com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(HabitRequest $habit)
+    public function show(Habit $habit)
     {
         //
     }
@@ -43,8 +48,12 @@ class HabitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(HabitRequest $habit)
+    public function edit(Habit $habit)
     {
+        if ($habit->user_id !== auth()->user()->id) {
+            abort(403, 'Ação não autorizada.');
+        }
+
         return view('habits.edit', compact('habit'));
     }
 
@@ -57,25 +66,26 @@ class HabitController extends Controller
             abort(403, 'Ação não autorizada.');
         }
 
-        $habit->update($request->all());
+        $habit->update($request->validated());
 
         return redirect()
-            ->route('site.dashboard')
+            ->route('habits.index')
             ->with('success', 'Hábito atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HabitRequest $habit)
+    public function destroy(Habit $habit)
     {
         if ($habit->user_id !== auth()->user()->id) {
             abort(403, 'Ação não autorizada.');
         }
+
         $habit->delete();
 
         return redirect()
-            ->route('site.dashboard')
+            ->route('habits.index')
             ->with('success', 'Hábito deletado com sucesso!');
     }
 }

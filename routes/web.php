@@ -17,16 +17,10 @@ route::post('/register', [RegisterController::class, 'store'])->name('auth.regis
 
 //AUTH
 Route::middleware(['auth'])->group(function () {
-
-    route::get('/dashboard', [siteController::class, 'dashboard'])->name('site.dashboard');
     route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-    //habits
-    route::get('/dashboard/habits/create', [HabitController::class, 'create'])->name('habit.create');
-    route::post('/dashboard/habits', [HabitController::class, 'store'])->name('habit.store');
-    route::delete('/dashboard/habits/{habit}', [HabitController::class, 'destroy'])->name('habit.destroy');
-    route::get('/dashboard/habits/{habit}/edit', [HabitController::class, 'edit'])->name('habit.edit');
-    route::put('/dashboard/habits/{habit}', [HabitController::class, 'update'])->name('habit.update');
+    Route::get('/dashboard', [HabitController::class, 'index'])->name('site.dashboard');
+    Route::resource('/dashboard/habits', HabitController::class)->except('show');
 });
 
 
