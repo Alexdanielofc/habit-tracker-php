@@ -5,7 +5,7 @@
     </h1>
 
     <section class="bg-white max-w-600px mx-auto p-10 pb-6 border-2">
-      <a href="{{ route('habit.create') }}" class="p-2 border-2 bg-orange-500 font-bold hover:bg-orange-400">
+      <a href="{{ route('habits.create') }}" class="p-2 border-2 bg-orange-500 font-bold hover:bg-orange-400">
         Cadastrar Hábito
       </a>
 
@@ -33,11 +33,11 @@
                   [{{ $item->habitLogs->count() }} registros]
                 </p>
 
-                <a href="{{ route('habit.edit', $item) }}" class="bg-blue-500 p-1 border-2 hover:opacity-50 cursor-pointer">
+                <a href="{{ route('habits.edit', $item) }}" class="bg-blue-500 p-1 border-2 hover:opacity-50 cursor-pointer">
                   <x-icons.pen />
                 </a>
 
-                <form action="{{ route('habit.destroy', $item) }}" method="POST" class="">
+                <form action="{{ route('habits.destroy', $item) }}" method="POST" class="">
                   @csrf
                   @method('DELETE')
 
@@ -52,7 +52,7 @@
             <p class="mb-4">
               Ainda não tem nenhum hábito cadastrado.
             </p>
-            <a href="{{ route('habit.create') }}" class="bg-white p-2 border-2 hover:underline">
+            <a href="{{ route('habits.create') }}" class="bg-white p-2 border-2 hover:underline">
               Cadastre um novo hábito agora
             </a>
           @endforelse
