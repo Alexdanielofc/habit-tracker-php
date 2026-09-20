@@ -52,4 +52,24 @@ class HabitCrudTest extends TestCase
             'id' => $habit->id,
         ]);
     }
+
+    public function test_user_can_toggle_a_habit_as_completed(): void
+    {
+        $user = User::factory()->create();
+        $habit = Habit::factory()->create([
+            'user_id' => $user->id,
+            'name' => 'Hábito para concluir',
+        ]);
+
+        $response = $this->actingAs($user)
+            ->post(route('habit.toggle', $habit));
+
+        $response->assertRedirect(route('habits.index'))
+            ->assertSessionHas('success', 'Habito concluido 👏');
+
+        $this->assertDatabaseHas('habit_logs', [
+            'habit_id' => $habit->id,
+            'user_id' => $user->id,
+        ]);
+    }
 }
