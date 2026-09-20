@@ -4,7 +4,7 @@
       Dashboard
     </h1>
 
-    <section class="bg-white max-w-600px mx-auto p-10 pb-6 border-2">
+    <section class="bg-white max-w-150 mx-auto p-10 pb-6 border-2">
       <a href="{{ route('habits.create') }}" class="p-2 border-2 bg-orange-500 font-bold hover:bg-orange-400">
         Cadastrar Hábito
       </a>
