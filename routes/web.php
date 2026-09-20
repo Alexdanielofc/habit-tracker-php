@@ -19,8 +19,10 @@ route::post('/register', [RegisterController::class, 'store'])->name('auth.regis
 Route::middleware(['auth'])->group(function () {
     route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-    Route::get('/dashboard', [HabitController::class, 'index'])->name('site.dashboard');
+    //HABITS
     Route::resource('/dashboard/habits', HabitController::class)->except('show');
+    Route::get('/dashboard/habits/configurar', [HabitController::class, 'settings'])->name('habit.settings');
+
 });
 
 

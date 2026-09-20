@@ -1,13 +1,7 @@
 <x-layout>
-  <main class="py-10">
-    <h1 class="font-bold text-4xl text-center mb-8">
-      Dashboard
-    </h1>
+  <main class="py-10 px-4">
 
-    <section class="bg-white max-w-150 mx-auto p-10 pb-6 border-2">
-      <a href="{{ route('habits.create') }}" class="p-2 border-2 bg-orange-500 font-bold hover:bg-orange-400">
-        Cadastrar Hábito
-      </a>
+    <x-navbar />
 
       @session('success')
         <div class="flex">
@@ -18,33 +12,19 @@
       @endsession
 
       <div>
-        <h2 class="text-xl mt-4">
-          Listagem dos Hábitos
+        <h2 class="text-lg mt-8 mb-2">
+          {{ date('d/m/Y') }}
         </h2>
 
         <ul class="flex flex-col gap-2">
           @forelse ($habits as $item)
-            <li class="pl-4">
+            <li class="habit-shadow-lg p-2 bg-boxhab">
               <div class="flex gap-2 items-center">
-                <p class="font-bold text-xl">
-                  - {{ $item->name }}
+                <input type="checkbox" class="w-5 h-5" {{ $item->is_completed ? 'checekd' : '' }} disabled />
+
+                <p class="font-bold text-md">
+                  {{ $item->name }}
                 </p>
-                <p>
-                  [{{ $item->habitLogs->count() }} registros]
-                </p>
-
-                <a href="{{ route('habits.edit', $item) }}" class="bg-blue-500 p-1 border-2 hover:opacity-50 cursor-pointer">
-                  <x-icons.pen />
-                </a>
-
-                <form action="{{ route('habits.destroy', $item) }}" method="POST" class="">
-                  @csrf
-                  @method('DELETE')
-
-                  <button type="submit" class="bg-red-500  p-1 border-2 hover:opacity-50">
-                    <x-icons.trash />
-                  </button>
-                </form>
 
               </div>
             </li>
@@ -59,6 +39,5 @@
         </ul>
 
       </div>
-    </section>
   </main>
 </x-layout>
