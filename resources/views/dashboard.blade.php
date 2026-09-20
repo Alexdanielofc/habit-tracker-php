@@ -18,11 +18,6 @@
 
         <ul class="flex flex-col gap-2">
           @forelse ($habits as $item)
-            @php
-                $isCompletedToday = $item->habitLogs
-                    ->where('user_id', auth()->id())
-                    ->contains(fn ($log) => $log->completed_at && \Carbon\Carbon::parse($log->completed_at)->isToday());
-            @endphp
 
             <li class="habit-shadow-lg p-2 bg-boxhab">
               <form
@@ -36,7 +31,7 @@
                 <input
                   type="checkbox"
                   class="w-5 h-5"
-                  {{ $isCompletedToday ? 'checked' : '' }}
+                  {{ $item->wasCompletedToday() ? 'checked' : '' }}
                   onchange="document.getElementById('form-{{ $item->id }}').submit()"
                 />
 
