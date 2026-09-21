@@ -23,7 +23,7 @@
 {{--  HEADER --}}
 <x-header/>
 
-<main class="flex-1">
+<main class="flex-1 habit-bg">
   {{$slot}}
 </main>
 

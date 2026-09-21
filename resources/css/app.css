@@ -21,6 +21,13 @@
     --color-trash: #c55959;
 }
 
+.habit-bg {
+  background-size: 70px 70px;
+  background-image: linear-gradient(90deg, #8080804d 1px, #0000 0),
+  linear-gradient(#8080804d 1px, #0000 0);
+  background-color: var(--color-hcbg);
+}
+
 .font-ibm {
   font-family: 'IBM Plex Mono', monospace;
 }

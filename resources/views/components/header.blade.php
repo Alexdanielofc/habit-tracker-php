@@ -11,8 +11,7 @@
       </p>
     </div>
 
-    {{-- GitHub --}}
-    <div>
+    <div class="flex gap-2 items-center">
       @auth
         <form
           class="inline"
@@ -38,6 +37,12 @@
           </a>
         </div>
       @endguest
+
+        <a href="https://github.com/Alexdanielofc"
+        class="habit-btn bg-hc1">
+          <x-icons.github />
+        </a>
+
     </div>
   </div>
 </header>
