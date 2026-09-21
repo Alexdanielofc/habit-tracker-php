@@ -140,7 +140,7 @@ class HabitController extends Controller
         $selectedYear = \Carbon\Carbon::now()->year;
 
         $startDate = \Carbon\Carbon::create($selectedYear, 1,1);
-        $endDate = \Carbon\Carbon::create($selectedYear, 12,31);
+        $endDate = \Carbon\Carbon::create($selectedYear, 12,31, 23,59,59);
 
         $habits = Auth::user()->habits()
             ->with(['habitLogs' => function($query) use ($startDate, $endDate) {
