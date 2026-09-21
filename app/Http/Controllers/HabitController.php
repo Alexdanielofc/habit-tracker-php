@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HabitRequest;
 use App\Models\Habit;
 use App\Models\HabitLog;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HabitController extends Controller
 {
+    use AuthorizesRequests;
     public function index(): View
     {
         $habits = Auth::user()->habits()
@@ -55,9 +57,7 @@ class HabitController extends Controller
      */
     public function edit(Habit $habit)
     {
-        if ($habit->user_id !== Auth::user()->id) {
-            abort(403, 'Ação não autorizada.');
-        }
+        $this->authorize('edit', $habit);
 
         return view('habits.edit', compact('habit'));
     }
@@ -67,9 +67,7 @@ class HabitController extends Controller
      */
     public function update(HabitRequest $request, Habit $habit)
     {
-        if ($habit->user_id !== Auth::user()->id) {
-            abort(403, 'Ação não autorizada.');
-        }
+        $this->authorize('update', $habit);
 
         $habit->update($request->validated());
 
@@ -83,9 +81,7 @@ class HabitController extends Controller
      */
     public function destroy(Habit $habit)
     {
-        if ($habit->user_id !== Auth::user()->id) {
-            abort(403, 'Ação não autorizada.');
-        }
+        $this->authorize('update', $habit);
 
         $habit->delete();
 
@@ -105,10 +101,7 @@ class HabitController extends Controller
     public function toggle(Habit $habit)
     {
         //1. Verificar se o ususario autenticado e dono do habito
-        if ($habit->user_id !== Auth::user()->id) {
-            abort(403, 'Ação não autorizada.');
-
-        }
+        $this->authorize('toggle', $habit);
 
         //2. Pegar a data de hoje
         $today = Carbon::today()-> toDateString(); // ('Y-m-d')
