@@ -87,7 +87,7 @@ class HabitController extends Controller
 
         return redirect()
             ->route('habits.index')
-            ->with('success', 'Hábito deletado com sucesso!');
+            ->with('error', 'Hábito deletado com sucesso!');
     }
 
     public function settings()
@@ -100,39 +100,35 @@ class HabitController extends Controller
 
     public function toggle(Habit $habit)
     {
-        //1. Verificar se o ususario autenticado e dono do habito
         $this->authorize('toggle', $habit);
 
-        //2. Pegar a data de hoje
         $today = Carbon::today()-> toDateString(); // ('Y-m-d')
 
-        //2.1 Pegar o log
         $log = HabitLog::query()
             ->where('habit_id', $habit->id)
             ->where('user_id', Auth::id())
             ->where('completed_at', $today)
             ->first();
 
-        //3. Validar se nessa data ja existe um registro
         if($log){
-            //4. Se existir, remover registro
             $log->delete();
             $message = 'Habito desmarcado.';
+            $alert = 'warning';
 
         } else {
-            //5. Se nao existir, criar registro
-            HabitLog::create([
-                'user_id' => Auth::id(),
-                'habit_id' => $habit->id,
-                'completed_at' => $today,
-            ]);
+            HabitLog::query()
+                ->create([
+                    'user_id' => Auth::id(),
+                    'habit_id' => $habit->id,
+                    'completed_at' => $today,
+                ]);
+            $alert = 'success';
             $message = 'Habito concluido 👏';
         }
 
-        //6. Retornar para a pagina anterior
         return redirect()
             ->route('habits.index')
-            ->with('success', $message);
+            ->with($alert, $message);
     }
 
     public function history(int $year = null): view

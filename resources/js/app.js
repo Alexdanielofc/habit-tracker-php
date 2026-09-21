@@ -1,1 +1,1 @@
-//
+import './toast.js';
