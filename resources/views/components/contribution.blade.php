@@ -11,14 +11,9 @@
 
 <div class="mb-6">
   {{-- NOME + ANO --}}
-  <div class="flex items-center justify-between mb-3">
-    <h2 class="font-bold text-lg">
-      {{ $habit->name }}
-    </h2>
-    <span class="text-sm text-gray-600 font-semibold">
-      {{ $selectedYear }}
-    </span>
-  </div>
+  <h2 class="font-bold text-lg">
+    {{ $habit->name }}
+  </h2>
 
   {{-- GRID --}}
   <div class="bg-orange-50 p-2 habit-shadow-lg">
@@ -32,7 +27,7 @@
             @else
               {{-- DIA --}}
               <div class="w-3 h-3 rounded-xs cursor-pointer transition hover:ring-2 hover:ring-blue-400
-                   {{ $habit->wasCompletedOn($day) ? 'bg-[#FF7A05]' : 'bg-cinzac' }}"
+                   {{ $habit->wasCompletedOn($day) ? 'bg-hc1' : 'bg-cinzac' }}"
                    title="{{ $day->format('d/m/Y') }} - {{ $day->translatedFormat('l') }}"
               ></div>
             @endif
@@ -45,11 +40,11 @@
   {{-- LEGENDA --}}
   <div class="flex items-center gap-4 mt-2 text-sm text-gray-600">
     <div class="flex items-center gap-1.5">
-      <div class="w-3 h-3 bg-[#DADFE9] rounded-xs"></div>
+      <div class="w-3 h-3 bg-cinzac rounded-xs"></div>
       <span>Não feito</span>
     </div>
     <div class="flex items-center gap-1.5">
-      <div class="w-3 h-3 bg-[#FF7A05] rounded-xs"></div>
+      <div class="w-3 h-3 bg-hc1 rounded-xs"></div>
       <span>Feito</span>
     </div>
   </div>

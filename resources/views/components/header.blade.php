@@ -21,7 +21,7 @@
 
           @csrf
 
-          <button type="submit" class="habit-btn bg-white p-2">
+          <button type="submit" class="habit-btn bg-cinzac p-2">
             Sair
           </button>
         </form>
