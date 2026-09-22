@@ -13,6 +13,7 @@ use Illuminate\View\View;
 class HabitController extends Controller
 {
     use AuthorizesRequests;
+
     public function index(): View
     {
         $habits = Auth::user()->habits()
@@ -94,7 +95,6 @@ class HabitController extends Controller
     {
         $habits = Auth::user()->habits;
 
-
         return view('habits.settings', compact('habits'));
     }
 
@@ -102,7 +102,7 @@ class HabitController extends Controller
     {
         $this->authorize('toggle', $habit);
 
-        $today = Carbon::today()-> toDateString(); // ('Y-m-d')
+        $today = Carbon::today()->toDateString(); // ('Y-m-d')
 
         $log = HabitLog::query()
             ->where('habit_id', $habit->id)
@@ -110,7 +110,7 @@ class HabitController extends Controller
             ->where('completed_at', $today)
             ->first();
 
-        if($log){
+        if ($log) {
             $log->delete();
             $message = 'Habito desmarcado.';
             $alert = 'warning';
@@ -131,34 +131,39 @@ class HabitController extends Controller
             ->with($alert, $message);
     }
 
-    public function history(int $year = null): view
+    public function history(?int $year = null): View
     {
-
 
         $selectedYear = $year ?? \Carbon\Carbon::now()->year;
 
         $availableYears = HabitLog::query()
-            ->whereHas('habit', fn($q) => $q->where('user_id', auth()->id()))
-            ->selectRaw('YEAR(completed_at) as year')
-            ->distinct()
+            ->whereHas('habit', fn ($q) => $q->where('user_id', auth()->id()))
             ->whereNotNull('completed_at')
-            ->orderBy('year')
-            ->pluck('year')
-            ->toArray();
+            ->pluck('completed_at')
+            ->map(static fn ($date): int => Carbon::parse($date)->year)
+            ->unique()
+            ->sort()
+            ->values()
+            ->all();
 
-        if(!in_array($selectedYear, $availableYears)){
-            abort(404,'Ano inválido');
+        if (! in_array($selectedYear, $availableYears, true) && $selectedYear === now()->year) {
+            $availableYears[] = $selectedYear;
+            sort($availableYears);
         }
 
-        $startDate = \Carbon\Carbon::create($selectedYear, 1,1);
-        $endDate = \Carbon\Carbon::create($selectedYear, 12,31, 23,59,59);
+        if (! in_array($selectedYear, $availableYears, true)) {
+            abort(404, 'Ano inválido');
+        }
+
+        $startDate = \Carbon\Carbon::create($selectedYear, 1, 1);
+        $endDate = \Carbon\Carbon::create($selectedYear, 12, 31, 23, 59, 59);
 
         $habits = Auth::user()->habits()
-            ->with(['habitLogs' => function($query) use ($startDate, $endDate) {
+            ->with(['habitLogs' => function ($query) use ($startDate, $endDate) {
                 $query->whereBetween('completed_at', [$startDate, $endDate]);
             }])
             ->get();
 
-        return view('habits.history', compact('habits','selectedYear', 'availableYears'));
+        return view('habits.history', compact('habits', 'selectedYear', 'availableYears'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class HabitRequest extends FormRequest
 {
@@ -22,8 +23,17 @@ class HabitRequest extends FormRequest
      */
     public function rules(): array
     {
+        $habit = $this->route('habit');
+
         return [
-            'name' => 'required|string|max:255'
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('habits', 'name')
+                    ->where(fn ($query) => $query->where('user_id', $this->user()->id))
+                    ->ignore($habit),
+            ],
         ];
     }
 
@@ -33,6 +43,7 @@ class HabitRequest extends FormRequest
             'name.required' => 'O nome é obrigatório.',
             'name.string' => 'Deve ser um texto válido.',
             'name.max' => 'Deve ter no máximo 255 caracteres.',
+            'name.unique' => 'Você já possui um hábito com esse nome.',
         ];
     }
 }
