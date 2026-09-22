@@ -10,14 +10,14 @@
 
     --color-cinzac: #c6c6c6;
 
-    /* Habit color */
-    --color-hc1: #bf6348;
+    /* Habit color color-orange:#bf6348 color-blue:#009dff */
+    --color-hc1: #009dff ;
     /*Background color*/
     --color-hcbg: #FFEDD6;
     /*Colorbox habits */
     --color-boxhab: #dcca9d;
-    /*Color pen and trash */
-    --color-pen: #4d76a8;
+    /*Color pen and trash color-blue:#4d76a8 */
+    --color-pen: #c6c6c6;
     --color-trash: #c55959;
 }
 

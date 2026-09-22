@@ -13,8 +13,8 @@
       </a>
     </li>
     <li>
-      <a href="#" class=" border-r-2 border-hc1 pr-2 pl-2 hover:underline" >
-        Calendário
+      <a href="#" class=" border-r-2 border-hc1 pr-2 pl-2 hover:underline cursor-not-allowed" >
+        Calendário 🔒
       </a>
     </li>
     <li>

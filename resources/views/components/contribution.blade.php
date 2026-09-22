@@ -16,18 +16,16 @@
   </h2>
 
   {{-- GRID --}}
-  <div class="bg-orange-50 p-2 habit-shadow-lg">
-    <div class="flex gap-1 justify-between w-full">
+  <div class="bg-orange-50 p-2 habit-shadow-lg overflow-x-auto">
+    <div class="flex gap-1 justify-between w-full min-w-min">
       @foreach($weeks as $week)
         <div class="flex flex-col gap-1">
           @foreach($week as $day)
             @if($day === null)
-              {{-- Espaço vazio para alinhar semanas --}}
               <div class="w-3 h-3"></div>
             @else
-              {{-- DIA --}}
               <div class="w-3 h-3 rounded-xs cursor-pointer transition hover:ring-2 hover:ring-blue-400
-                   {{ $habit->wasCompletedOn($day) ? 'bg-hc1' : 'bg-cinzac' }}"
+                 {{ $habit->wasCompletedOn($day) ? 'bg-hc1' : 'bg-cinzac' }}"
                    title="{{ $day->format('d/m/Y') }} - {{ $day->translatedFormat('l') }}"
               ></div>
             @endif

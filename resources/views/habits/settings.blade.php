@@ -1,43 +1,40 @@
 <x-layout>
-  <main class="py-10 px-4">
+  <main class="max-w-5xl mx-auto py-10 px-4 w-full ">
 
+    {{-- NAVBAR --}}
     <x-navbar />
 
-    @session('success')
-    <div class="flex">
-      <p class="bg-green-100 border-2 border-green-400 text-green-700 p-3 mt-4">
-        {{ session('success') }}
-      </p>
-    </div>
-    @endsession
 
-    <div>
-      <h2 class="text-lg mt-8 mb-2">
+      <x-title>
         Configurar Hábitos
-      </h2>
+      </x-title>
 
-      <ul class="flex flex-col gap-2">
+      <ul class="flex flex-col gap-2 mt-2">
         @forelse ($habits as $item)
-          <li class="habit-shadow-lg p-2 bg-boxhab">
-            <div class="flex gap-2 items-center">
+          <li class="flex gap-2  items-center justify-between w-full">
+
+            {{-- ITEM --}}
+            <div class="habit-shadow-lg p-2 bg-boxhab w-full">
               <p class="font-bold text-md">
                 {{ $item->name }}
               </p>
-
-              <a href="{{ route('habits.edit', $item) }}" class="bg-pen p-1 border-2 hover:opacity-50 cursor-pointer">
-                <x-icons.pen />
-              </a>
-
-              <form action="{{ route('habits.destroy', $item) }}" method="POST" class="">
-                @csrf
-                @method('DELETE')
-
-                <button type="submit" class="bg-trash  p-1 border-2 hover:opacity-50">
-                  <x-icons.trash />
-                </button>
-              </form>
-
             </div>
+
+            {{-- EDIT --}}
+            <a href="{{ route('habits.edit', $item) }}" class="habit-shadow-lg bg-pen p-2 border-2 hover:opacity-50 cursor-pointer">
+              <x-icons.pen />
+            </a>
+
+            {{-- DELETE --}}
+            <form action="{{ route('habits.destroy', $item) }}" method="POST" class="">
+              @csrf
+              @method('DELETE')
+
+              <button type="submit" class="habit-shadow-lg bg-trash  p-2 border-2 hover:opacity-50">
+                <x-icons.trash />
+              </button>
+            </form>
+
           </li>
         @empty
           <p class="mb-4">
@@ -48,7 +45,5 @@
           </a>
         @endforelse
       </ul>
-
-    </div>
   </main>
 </x-layout>

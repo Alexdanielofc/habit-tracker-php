@@ -2,13 +2,13 @@
   <p class="text-center">
     Criado por
     <a href="https://www.instagram.com/alexdanielofc/"
-       target="_blank" class="font-bold underline hover:text-hc1" >
+       target="_blank" class="font-bold hover:text-hc1 " >
       Alex Daniel.
     </a>
 
     O código fonte está no
     <a href="https://github.com/Alexdanielofc"
-       target="_blank" class="font-bold underline hover:text-hc1" >
+       target="_blank" class="font-bold  hover:text-hc1 " >
       GitHub.
     </a>
   </p>

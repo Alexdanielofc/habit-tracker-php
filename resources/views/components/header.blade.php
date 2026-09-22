@@ -38,7 +38,7 @@
         </div>
       @endguest
 
-        <a href="https://github.com/Alexdanielofc"
+        <a target="_blank" href="https://github.com/Alexdanielofc/habit-tracker-php"
         class="habit-btn bg-hc1">
           <x-icons.github />
         </a>

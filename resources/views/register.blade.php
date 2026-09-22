@@ -1,6 +1,6 @@
 <x-layout>
   <main class="py-10">
-    <section class="bg-white max-w-600px mx-auto p-10 pb-6 border-2 mt-4">
+    <section class="habit-shadow-lg bg-white max-w-150 mx-auto p-10 pb-6 mt-4">
 
       <h1 class="font-bold text-2xl">
         Registre-se
@@ -91,7 +91,7 @@
 
         <button
           type="submit"
-          class="mt-4 mb-4 bg-orange-500 border-2 p-2 font-bold hover:bg-orange-600 "
+          class="mt-4 mb-4 p-2 habit-btn bg-hc1"
         >
           Cadastrar
         </button>

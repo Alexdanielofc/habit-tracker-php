@@ -1,8 +1,12 @@
 <x-layout>
-  <main class="max-w-5xl mx-auto py-10 px-4 ">
+  <main class="max-w-5xl mx-auto py-10 px-4 w-full ">
 
     {{--NAVBAR--}}
     <x-navbar />
+
+    <x-title>
+      Histórico
+    </x-title>
 
     {{-- YAR SELECTION --}}
     <div class="my-4">
